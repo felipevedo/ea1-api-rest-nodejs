@@ -3,7 +3,7 @@ const { query } = db.init();
 
 module.exports = {
     getMarcas: async (req, res) => {
-        console.log('[GET] /marca req.query: ', req.query);
+        console.log('[GET] /marcas req.query: ', req.query);
         const { id } = req.query;
 
         let queryString = "SELECT * FROM marcas";
@@ -18,7 +18,7 @@ module.exports = {
         });
     },
     createMarca: async  (req, res) => {
-        console.log('[POST] /marca req.body: ', req.body);
+        console.log('[POST] /marcas req.body: ', req.body);
         
         const { name, status, createdDate, updateDate } = req.body;
         const intStatus = status ? 1 : 0;
@@ -35,7 +35,7 @@ module.exports = {
         }       
     },
     updateMarca: async (req, res) => {
-        console.log('[PUT] /marca req.body: ', req.body);
+        console.log('[PUT] /marcas req.body: ', req.body);
 
         const { id, name, status, createdDate, updateDate } = req.body;
         const intStatus = status ? 1 : 0;
@@ -58,7 +58,7 @@ module.exports = {
         }    
     },
     deleteMarca: async (req, res) => {
-        console.log('[DELETE] /marca req.body: ', req.body);
+        console.log('[DELETE] /marcas req.body: ', req.body);
 
         const { id } = req.body;
 
