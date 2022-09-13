@@ -3,11 +3,13 @@ const router = express.Router();
 const {
     getInventario,
     createInventario,
-    updateInventario
+    updateInventario,
+    deleteInventario
 } = require('../controllers/inventario');
 
 router.get('/', getInventario);
 router.post('/', createInventario);
 router.put('/', updateInventario);
+router.delete('/', deleteInventario);
 
 module.exports = router;

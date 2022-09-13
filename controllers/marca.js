@@ -57,4 +57,19 @@ module.exports = {
             res.status(400).json({ message: 'no se pudo actualizar la marca' });
         }    
     },
+    deleteMarca: async (req, res) => {
+        console.log('[DELETE] /marca req.body: ', req.body);
+
+        const { id } = req.body;
+
+        try {
+            await query(`DELETE FROM marcas WHERE id = ${id}`);
+
+            res.status(200).json({ message: 'marca eliminada' });
+
+        } catch (e) {
+            console.log('My server log error: ', e)
+            res.status(400).json({ message: 'no se pudo eliminar la marca' });
+        } 
+    },
 };

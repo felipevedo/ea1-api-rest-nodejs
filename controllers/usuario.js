@@ -3,7 +3,7 @@ const { query } = db.init();
 
 module.exports = {
     getUsuarios: async (req, res) => {
-        console.log('[GET] /usuario req.query: ', req.query);
+        console.log('[GET] /usuarios req.query: ', req.query);
         const { id } = req.query;
 
         let queryString = "SELECT * FROM usuarios";
@@ -18,7 +18,7 @@ module.exports = {
         });
     },
     createUsuario: async  (req, res) => {
-        console.log('[POST] /usuario req.body: ', req.body);
+        console.log('[POST] /usuarios req.body: ', req.body);
         
         const { name, email, status, createdDate, updateDate } = req.body;
         const intStatus = status ? 1 : 0;
@@ -35,7 +35,7 @@ module.exports = {
         }       
     },
     updateUsuario: async (req, res) => {
-        console.log('[PUT] /usuario req.body: ', req.body);
+        console.log('[PUT] /usuarios req.body: ', req.body);
 
         const { id, name, email, status, createdDate, updateDate } = req.body;
         const intStatus = status ? 1 : 0;
@@ -57,5 +57,20 @@ module.exports = {
             console.log('My server log error: ', e)
             res.status(400).json({ message: 'no se pudo actualizar el usuario' });
         }    
+    },
+    deleteUsuario: async (req, res) => {
+        console.log('[DELETE] /usuarios req.body: ', req.body);
+
+        const { id } = req.body;
+
+        try {
+            await query(`DELETE FROM usuarios WHERE id = ${id}`);
+
+            res.status(200).json({ message: 'usuario eliminado' });
+
+        } catch (e) {
+            console.log('My server log error: ', e)
+            res.status(400).json({ message: 'no se pudo eliminar el usuario' });
+        } 
     },
 };

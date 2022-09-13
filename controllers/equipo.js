@@ -3,7 +3,7 @@ const { query } = db.init();
 
 module.exports = {
     getTipos: async (req, res) => {
-        console.log('[GET] /equipo/tipos req.query: ', req.query);
+        console.log('[GET] /equipos/tipos req.query: ', req.query);
         const { id } = req.query;
 
         let queryString = "SELECT * FROM tipos";
@@ -18,7 +18,7 @@ module.exports = {
         });
     },
     createTipoEquipo: async  (req, res) => {
-        console.log('[POST] /equipo/tipos req.body: ', req.body);
+        console.log('[POST] /equipos/tipos req.body: ', req.body);
         
         const { name, status, createdDate, updateDate } = req.body;
         const intStatus = status ? 1 : 0;
@@ -35,7 +35,7 @@ module.exports = {
         }       
     },
     updateTipoEquipo: async (req, res) => {
-        console.log('[PUT] /equipo/tipos req.body: ', req.body);
+        console.log('[PUT] /equipos/tipos req.body: ', req.body);
 
         const { id, name, status, createdDate, updateDate } = req.body;
         const intStatus = status ? 1 : 0;
@@ -57,8 +57,23 @@ module.exports = {
             res.status(400).json({ message: 'no se pudo actualizar el tipo de equipo' });
         }    
     },
+    deleteTipoEquipo: async (req, res) => {
+        console.log('[DELETE] /equipos/tipos req.body: ', req.body);
+
+        const { id } = req.body;
+
+        try {
+            await query(`DELETE FROM tipos WHERE id = ${id}`);
+
+            res.status(200).json({ message: 'tipo de equipo eliminado' });
+
+        } catch (e) {
+            console.log('My server log error: ', e)
+            res.status(400).json({ message: 'no se pudo eliminar el tipo de equipo' });
+        } 
+    },
     getEstados: async (req, res) => {
-        console.log('[GET] /equipo/estados req.query: ', req.query);
+        console.log('[GET] /equipos/estados req.query: ', req.query);
         const { id } = req.query;
 
         let queryString = "SELECT * FROM estados";
@@ -73,7 +88,7 @@ module.exports = {
         });
     },
     createEstadoEquipo: async  (req, res) => {
-        console.log('[POST] /equipo/estados req.body: ', req.body);
+        console.log('[POST] /equipos/estados req.body: ', req.body);
         
         const { name, status, createdDate, updateDate } = req.body;
         const intStatus = status ? 1 : 0;
@@ -90,7 +105,7 @@ module.exports = {
         }       
     },
     updateEstadoEquipo: async (req, res) => {
-        console.log('[PUT] /equipo/estados req.body: ', req.body);
+        console.log('[PUT] /equipos/estados req.body: ', req.body);
 
         const { id, name, status, createdDate, updateDate } = req.body;
         const intStatus = status ? 1 : 0;
@@ -111,5 +126,20 @@ module.exports = {
             console.log('My server log error: ', e)
             res.status(400).json({ message: 'no se pudo actualizar el estado de equipo' });
         }    
+    },
+    deleteEstadoEquipo: async (req, res) => {
+        console.log('[DELETE] /equipos/estados req.body: ', req.body);
+
+        const { id } = req.body;
+
+        try {
+            await query(`DELETE FROM estados WHERE id = ${id}`);
+
+            res.status(200).json({ message: 'estado de equipo eliminado' });
+
+        } catch (e) {
+            console.log('My server log error: ', e)
+            res.status(400).json({ message: 'no se pudo eliminar el estado de equipo' });
+        } 
     },
 };

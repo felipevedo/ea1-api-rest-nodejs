@@ -52,4 +52,19 @@ module.exports = {
             res.status(400).json({ message: 'no se pudo actualizar el inventario' });
         }    
     },
+    deleteInventario: async (req, res) => {
+        console.log('[DELETE] /inventario req.body: ', req.body);
+
+        const { serial } = req.body;
+
+        try {
+            await query(`DELETE FROM inventario WHERE serial = ${serial}`);
+
+            res.status(200).json({ message: 'inventario eliminado' });
+
+        } catch (e) {
+            console.log('My server log error: ', e)
+            res.status(400).json({ message: 'no se pudo eliminar el inventario' });
+        } 
+    },
 };
