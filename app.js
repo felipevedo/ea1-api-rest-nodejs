@@ -8,7 +8,7 @@ const rutasMarca = require('./routes/marca');
 const rutasUsuario = require('./routes/usuario');
 const rutasInventario = require('./routes/inventario');
 
-const port = 3001;
+const port = process.env.PORT || 3001;
 const app = express();
 
 app.use(cors());
