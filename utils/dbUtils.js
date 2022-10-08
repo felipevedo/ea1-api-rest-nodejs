@@ -2,10 +2,10 @@ exports.init = () => {
     const db = require('mysql2');
 
     const conn = db.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '1234',
-        database: 'ea1'
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PW,
+        database: process.env.DB_NAME
     });
 
     function query(sql) {

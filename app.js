@@ -1,6 +1,9 @@
 const express = require('express');
 const cors = require('cors');
-const rutasEquipo = require('./routes/equipo');
+const dotenv = require('dotenv');
+dotenv.config();
+const rutasTipoEquipo = require('./routes/estadoEquipo');
+const rutasEstadoEquipo = require('./routes/tipoEquipo');
 const rutasMarca = require('./routes/marca');
 const rutasUsuario = require('./routes/usuario');
 const rutasInventario = require('./routes/inventario');
@@ -18,7 +21,8 @@ app.get('/', (req, res) => {
     res.json({ message: 'api working' });
 });
 
-app.use('/equipos', rutasEquipo);
+app.use('/equipos/tipos', rutasTipoEquipo);
+app.use('/equipos/estados', rutasEstadoEquipo);
 app.use('/marcas', rutasMarca);
 app.use('/usuarios', rutasUsuario);
-app.use('/inventario', rutasInventario);
+app.use('/inventarios', rutasInventario);
