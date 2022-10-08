@@ -1,5 +1,4 @@
-const db = require('../utils/dbUtils');
-const { query } = db.init();
+const { query } = require('../utils/dbUtils');
 
 module.exports = {
     getInventario: async (req, res) => {

@@ -1,5 +1,6 @@
-const db = require('../utils/dbUtils');
-const { query } = db.init();
+const { query } = require('../utils/dbUtils');
+
+console.log('[estadoEquipo] query', query)
 
 module.exports = {
     getEstados: async (req, res) => {
