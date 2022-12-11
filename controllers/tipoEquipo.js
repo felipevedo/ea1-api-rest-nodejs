@@ -1,4 +1,5 @@
 const { query } = require('../utils/dbUtils');
+const { validationResult } = require('express-validator');
 
 module.exports = {
     getTipos: async (req, res) => {
@@ -23,6 +24,11 @@ module.exports = {
         const intStatus = status ? 1 : 0;
 
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ message: errors.array() });
+            }
+
             await query(`INSERT INTO tipos (nombre, estado, fechaCreacion, fechaActualizacion)
                 VALUES ('${name}', '${intStatus}', '${createdDate}', '${updateDate}')`);
 
@@ -40,6 +46,11 @@ module.exports = {
         const intStatus = status ? 1 : 0;
 
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ message: errors.array() });
+            }
+
             await query(`
                 UPDATE tipos SET 
                 nombre = '${name}',
@@ -62,6 +73,11 @@ module.exports = {
         const { id } = req.body;
 
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ message: errors.array() });
+            }
+
             await query(`DELETE FROM tipos WHERE id = ${id}`);
 
             res.status(200).json({ message: 'tipo de equipo eliminado' });

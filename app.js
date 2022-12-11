@@ -7,6 +7,7 @@ const rutasEstadoEquipo = require('./routes/estadoEquipo');
 const rutasMarca = require('./routes/marca');
 const rutasUsuario = require('./routes/usuario');
 const rutasInventario = require('./routes/inventario');
+const rutasAuth = require('./routes/auth');
 
 const port = process.env.PORT || 3001;
 const app = express();
@@ -26,3 +27,4 @@ app.use('/equipos/estados', rutasEstadoEquipo);
 app.use('/marcas', rutasMarca);
 app.use('/usuarios', rutasUsuario);
 app.use('/inventarios', rutasInventario);
+app.use('/login', rutasAuth);

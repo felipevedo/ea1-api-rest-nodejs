@@ -1,7 +1,5 @@
 const { query } = require('../utils/dbUtils');
 
-console.log('[estadoEquipo] query', query)
-
 module.exports = {
     getEstados: async (req, res) => {
         console.log('[GET] /equipos/estados req.query: ', req.query);
@@ -25,6 +23,11 @@ module.exports = {
         const intStatus = status ? 1 : 0;
 
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ message: errors.array() });
+            }
+
             await query(`INSERT INTO estados (nombre, estado, fechaCreacion, fechaActualizacion)
                 VALUES ('${name}', '${intStatus}', '${createdDate}', '${updateDate}')`);
 
@@ -42,6 +45,11 @@ module.exports = {
         const intStatus = status ? 1 : 0;
 
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ message: errors.array() });
+            }
+
             await query(`
                 UPDATE estados SET 
                 nombre = '${name}',
@@ -64,6 +72,11 @@ module.exports = {
         const { id } = req.body;
 
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ message: errors.array() });
+            }
+            
             await query(`DELETE FROM estados WHERE id = ${id}`);
 
             res.status(200).json({ message: 'estado de equipo eliminado' });

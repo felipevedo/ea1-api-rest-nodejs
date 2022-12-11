@@ -23,6 +23,11 @@ module.exports = {
         const intStatus = status ? 1 : 0;
 
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ message: errors.array() });
+            }
+
             await query(`INSERT INTO marcas (nombre, estado, fechaCreacion, fechaActualizacion)
                 VALUES ('${name}', '${intStatus}', '${createdDate}', '${updateDate}')`);
 
@@ -40,6 +45,11 @@ module.exports = {
         const intStatus = status ? 1 : 0;
 
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ message: errors.array() });
+            }
+
             await query(`
                 UPDATE marcas SET 
                 nombre = '${name}',
@@ -62,6 +72,11 @@ module.exports = {
         const { id } = req.body;
 
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ message: errors.array() });
+            }
+            
             await query(`DELETE FROM marcas WHERE id = ${id}`);
 
             res.status(200).json({ message: 'marca eliminada' });

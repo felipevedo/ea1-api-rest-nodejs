@@ -22,6 +22,11 @@ module.exports = {
         const { model, description, photoUrl, color, buyDate, price, userId, brandId, stateId, typeId  } = req.body;
 
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ message: errors.array() });
+            }
+
             await query(`INSERT INTO inventario (modelo, descripcion, urlFoto, color, fechaCompra, precio, idUsuarioACargo, idMarca, idEstado, idTipo)
               VALUES ('${model}', '${description}', '${photoUrl}', '${color}', '${buyDate}', '${price}', '${userId}', '${brandId}', '${stateId}', '${typeId}')`);
 
@@ -35,9 +40,14 @@ module.exports = {
     updateInventario: async (req, res) => {
         console.log('[PUT] /inventario req.body: ', req.body);
 
-        const { serial, model, description, photoUrl, color, buyDate, price, userId, brandId, stateId, typeId  } = req.body;
+        const { serial, model, description, photoUrl, color, buyDate, price, userId, brandId, stateId, typeId } = req.body;
 
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ message: errors.array() });
+            }
+
             await query(`
                 UPDATE inventario SET 
                 modelo='${model}', descripcion='${description}', urlFoto='${photoUrl}', color='${color}', fechaCompra='${buyDate}', precio=${price}, idUsuarioACargo=${userId}, idMarca=${brandId}, idEstado=${stateId}, idTipo=${typeId}
@@ -57,6 +67,11 @@ module.exports = {
         const { serial } = req.body;
 
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ message: errors.array() });
+            }
+            
             await query(`DELETE FROM inventario WHERE serial = ${serial}`);
 
             res.status(200).json({ message: 'inventario eliminado' });
